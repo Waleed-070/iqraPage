@@ -16,6 +16,7 @@ export default function ContactForm() {
     studentAge: '',
     currentLevel: '',
     preferredDays: '',
+    preferredTime: '',
     message: '',
   });
 
@@ -268,24 +269,44 @@ export default function ContactForm() {
 
                   {/* Step 3: Schedule */}
                   <div className={`form-step ${currentStep === 2 ? 'active' : ''}`}>
-                    <div className="form-group">
-                      <label htmlFor="preferredDays">Preferred Schedule</label>
-                      <select
-                        id="preferredDays"
-                        name="preferredDays"
-                        className="form-input"
-                        value={formData.preferredDays}
-                        onChange={handleChange}
-                        required
-                      >
-                        <option value="">Select a plan</option>
-                        <option value="2-days">2 Days Plan (Thu–Fri) — £60/month</option>
-                        <option value="3-days">3 Days Plan (Mon–Wed) — £80/month</option>
-                        <option value="5-days">5 Days Plan (Mon–Fri) — £120/month</option>
-                      </select>
+                    <div className="form-row">
+                      <div className="form-group">
+                        <label htmlFor="preferredDays">Preferred Plan</label>
+                        <select
+                          id="preferredDays"
+                          name="preferredDays"
+                          className="form-input"
+                          value={formData.preferredDays}
+                          onChange={handleChange}
+                          required
+                        >
+                          <option value="">Select a plan</option>
+                          <option value="2-days">2 Days (Thu–Fri) — £60/mo</option>
+                          <option value="3-days">3 Days (Mon–Wed) — £80/mo</option>
+                          <option value="5-days">5 Days (Mon–Fri) — £120/mo</option>
+                        </select>
+                      </div>
+                      <div className="form-group">
+                        <label htmlFor="preferredTime">Preferred Time Slot</label>
+                        <select
+                          id="preferredTime"
+                          name="preferredTime"
+                          className="form-input"
+                          value={formData.preferredTime}
+                          onChange={handleChange}
+                          required
+                        >
+                          <option value="">Select a time</option>
+                          <option value="3pm">3:00 PM – 4:00 PM GMT</option>
+                          <option value="4pm">4:00 PM – 5:00 PM GMT</option>
+                          <option value="5pm">5:00 PM – 6:00 PM GMT</option>
+                          <option value="6pm">6:00 PM – 7:00 PM GMT</option>
+                          <option value="7pm">7:00 PM – 8:00 PM GMT</option>
+                        </select>
+                      </div>
                     </div>
                     <div className="form-group">
-                      <label htmlFor="message">Additional Message (Optional)</label>
+                      <label htmlFor="message">Additional Notes (Optional)</label>
                       <textarea
                         id="message"
                         name="message"
@@ -293,7 +314,7 @@ export default function ContactForm() {
                         placeholder="Tell us about your child's specific needs or any questions you have..."
                         value={formData.message}
                         onChange={handleChange}
-                        rows={4}
+                        rows={3}
                       />
                     </div>
                     <div className="form-nav">
@@ -301,7 +322,7 @@ export default function ContactForm() {
                         ← Back
                       </button>
                       <button type="submit" className="btn btn-primary">
-                        Submit Enquiry ✨
+                        Confirm Free Trial ✨
                       </button>
                     </div>
                   </div>

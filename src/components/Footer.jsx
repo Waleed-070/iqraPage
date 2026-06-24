@@ -1,4 +1,5 @@
 import { Mail, Phone, MapPin, Globe, MessageCircle, Video } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import './Footer.css';
 
 export default function Footer() {
@@ -26,11 +27,12 @@ export default function Footer() {
           <div className="footer-column">
             <h4>Quick Links</h4>
             <div className="footer-links">
-              <a href="#home" className="footer-link">Home</a>
-              <a href="#benefits" className="footer-link">About Us</a>
-              <a href="#syllabus" className="footer-link">Curriculum</a>
-              <a href="#pricing" className="footer-link">Pricing</a>
-              <a href="#contact" className="footer-link">Book a Trial</a>
+              <Link to="/" className="footer-link">Home</Link>
+              <Link to="/about" className="footer-link">About Us</Link>
+              <Link to="/curriculum" className="footer-link">Curriculum</Link>
+              <Link to="/pricing" className="footer-link">Pricing</Link>
+              <Link to="/faq" className="footer-link">FAQ</Link>
+              <Link to="/contact" className="footer-link">Book a Trial</Link>
             </div>
           </div>
 
@@ -38,11 +40,11 @@ export default function Footer() {
           <div className="footer-column">
             <h4>Programmes</h4>
             <div className="footer-links">
-              <a href="#syllabus" className="footer-link">KS1 & KS2 Maths</a>
-              <a href="#syllabus" className="footer-link">KS3 Maths</a>
-              <a href="#syllabus" className="footer-link">GCSE Maths</a>
-              <a href="#syllabus" className="footer-link">IGCSE Maths</a>
-              <a href="#syllabus" className="footer-link">Exam Preparation</a>
+              <Link to="/curriculum" className="footer-link">KS1 & KS2 Maths</Link>
+              <Link to="/curriculum" className="footer-link">KS3 Maths</Link>
+              <Link to="/curriculum" className="footer-link">GCSE Maths</Link>
+              <Link to="/curriculum" className="footer-link">IGCSE Maths</Link>
+              <Link to="/curriculum" className="footer-link">Exam Preparation</Link>
             </div>
           </div>
 

@@ -1,17 +1,22 @@
 import { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import './Header.css';
 
 const NAV_ITEMS = [
-  { label: 'Home', href: '#home' },
-  { label: 'About', href: '#benefits' },
-  { label: 'Curriculum', href: '#syllabus' },
-  { label: 'Pricing', href: '#pricing' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '/about' },
+  { label: 'Curriculum', href: '/curriculum' },
+  { label: 'Pricing', href: '/pricing' },
+  { label: 'FAQ', href: '/faq' },
+  { label: 'Contact', href: '/contact' },
 ];
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
+
+  const isHomePage = location.pathname === '/';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,30 +37,30 @@ export default function Header() {
   };
 
   return (
-    <header className={`header ${scrolled ? 'scrolled' : ''}`} id="header">
+    <header className={`header ${(scrolled || !isHomePage) ? 'scrolled' : ''}`} id="header">
       <div className="header-inner">
-        <a href="#home" className="logo" aria-label="IQRA Virtual Academy Home">
+        <Link to="/" className="logo" aria-label="IQRA Virtual Academy Home">
           <div className="logo-icon">إ</div>
           <div className="logo-text">
             IQRA <span>Virtual Academy</span>
           </div>
-        </a>
+        </Link>
 
         <nav className="nav">
           <div className="nav-links">
             {NAV_ITEMS.map((item) => (
-              <a
+              <Link
                 key={item.href}
-                href={item.href}
+                to={item.href}
                 className="nav-link"
               >
                 {item.label}
-              </a>
+              </Link>
             ))}
           </div>
-          <a href="#contact" className="btn btn-primary header-cta">
+          <Link to="/contact" className="btn btn-primary header-cta">
             Book Free Trial
-          </a>
+          </Link>
         </nav>
 
         <button
@@ -73,22 +78,22 @@ export default function Header() {
       {/* Mobile Menu Overlay */}
       <div className={`mobile-menu ${menuOpen ? 'open' : ''}`}>
         {NAV_ITEMS.map((item) => (
-          <a
+          <Link
             key={item.href}
-            href={item.href}
+            to={item.href}
             className="nav-link"
             onClick={handleNavClick}
           >
             {item.label}
-          </a>
+          </Link>
         ))}
-        <a
-          href="#contact"
+        <Link
+          to="/contact"
           className="btn btn-primary header-cta"
           onClick={handleNavClick}
         >
           Book Free Trial
-        </a>
+        </Link>
       </div>
     </header>
   );

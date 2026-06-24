@@ -1,9 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 
-/**
- * Custom hook that observes when an element enters the viewport
- * and triggers a CSS class change for scroll-based animations.
- */
 export function useScrollAnimation(options = {}) {
   const {
     threshold = 0.15,

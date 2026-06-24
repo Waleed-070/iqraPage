@@ -25,8 +25,9 @@
 }
 
 .pricing-card {
-  background: var(--white);
-  border: 2px solid var(--border);
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  border: 2px solid rgba(255, 255, 255, 0.4);
   border-radius: var(--radius-xl);
   padding: var(--space-2xl) var(--space-xl);
   text-align: center;
@@ -44,7 +45,8 @@
 /* Featured card */
 .pricing-card.featured {
   border-color: var(--accent);
-  background: linear-gradient(180deg, rgba(212, 168, 67, 0.04) 0%, var(--white) 30%);
+  background: linear-gradient(180deg, rgba(212, 168, 67, 0.04) 0%, rgba(255, 255, 255, 0.8) 30%);
+  backdrop-filter: blur(12px);
   transform: scale(1.05);
   box-shadow: var(--shadow-lg);
   z-index: 1;
@@ -184,3 +186,104 @@
     transform: translateY(-4px);
   }
 }
+
+/* ===== How It Works ===== */
+.how-it-works {
+  background-color: #F8FAFC;
+  border-bottom: 1px solid #e9ecf0;
+  padding: var(--space-4xl) 0;
+}
+
+.hiw-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4xl);
+  align-items: center;
+}
+
+/* Image Column */
+.hiw-image-col {
+  width: 100%;
+}
+
+.hiw-image {
+  width: 100%;
+  border-radius: 16px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.1);
+  display: block;
+}
+
+/* Text Column */
+.hiw-text-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xl);
+}
+
+.hiw-heading {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1.25;
+  margin-bottom: var(--space-md);
+}
+
+/* Steps */
+.hiw-step {
+  display: flex;
+  gap: var(--space-xl);
+  align-items: flex-start;
+}
+
+.hiw-step-number {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--gradient-accent);
+  color: var(--primary-dark);
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-gold);
+  margin-top: 2px;
+}
+
+.hiw-step-body h3 {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: var(--space-sm);
+}
+
+.hiw-step-body p {
+  font-size: 0.98rem;
+  color: #374151;
+  line-height: 1.7;
+}
+
+.hiw-footer-note {
+  font-size: 0.9rem;
+  color: #6b7280;
+  border-top: 1px solid #e5e7eb;
+  padding-top: var(--space-lg);
+  margin-top: var(--space-md);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hiw-inner {
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+  }
+
+  .hiw-heading {
+    font-size: 1.6rem;
+  }
+}
+

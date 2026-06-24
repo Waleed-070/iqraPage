@@ -1,5 +1,6 @@
 import { Check } from 'lucide-react';
 import { AnimateOnScroll } from './ScrollAnimations';
+import howItWorksImg from '../assets/how_it_works.png';
 import './Pricing.css';
 
 const PLANS = [
@@ -49,6 +50,55 @@ const PLANS = [
 export default function Pricing() {
   return (
     <section className="pricing" id="pricing">
+
+      {/* How It Works Section */}
+      <div className="how-it-works">
+        <div className="hiw-inner section">
+          <AnimateOnScroll>
+            <div className="hiw-image-col">
+              <img
+                src={howItWorksImg}
+                alt="Student attending a live 1-to-1 online maths tutoring session on a laptop, showing a digital whiteboard and progress dashboard"
+                className="hiw-image"
+              />
+            </div>
+          </AnimateOnScroll>
+
+          <AnimateOnScroll>
+            <div className="hiw-text-col">
+              <h2 className="hiw-heading">How It Works: 3 Simple Steps to Start Learning</h2>
+
+              <div className="hiw-step">
+                <div className="hiw-step-number">1</div>
+                <div className="hiw-step-body">
+                  <h3>Book Your Free Assessment</h3>
+                  <p>We start by evaluating your child's current grade level and identifying specific learning gaps to ensure we build the perfect foundational path.</p>
+                </div>
+              </div>
+
+              <div className="hiw-step">
+                <div className="hiw-step-number">2</div>
+                <div className="hiw-step-body">
+                  <h3>Get Matched with an Expert Tutor</h3>
+                  <p>We pair your child with a dedicated, professional math tutor who matches their personality and unique learning style for long-term consistency.</p>
+                </div>
+              </div>
+
+              <div className="hiw-step">
+                <div className="hiw-step-number">3</div>
+                <div className="hiw-step-body">
+                  <h3>Track Real-Time Progress</h3>
+                  <p>Log into your personalized parent portal anytime to view interactive performance reports, lesson notes, and upcoming schedules.</p>
+                </div>
+              </div>
+
+              <p className="hiw-footer-note"><em>No long-term contracts. You can switch plans or cancel at any time.</em></p>
+            </div>
+          </AnimateOnScroll>
+        </div>
+      </div>
+
+      {/* Pricing Cards Section */}
       <div className="section">
         <AnimateOnScroll>
           <div className="section-header">

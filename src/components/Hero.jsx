@@ -1,10 +1,45 @@
+import { useState, useEffect } from 'react';
 import heroImg from '../assets/hero-student.png';
 import './Hero.css';
 
+const PHRASES = [
+  "Expert 1-to-1 Tuition.",
+  "Personalised Learning.",
+  "Interactive Sessions.",
+  "Proven Methodologies."
+];
+
 export default function Hero() {
+  const [text, setText] = useState('');
+  const [phraseIndex, setPhraseIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    const currentPhrase = PHRASES[phraseIndex];
+    
+    const timeout = setTimeout(() => {
+      if (!isDeleting) {
+        setText(currentPhrase.substring(0, text.length + 1));
+        
+        if (text === currentPhrase) {
+          // Wait longer when the phrase is fully typed out
+          setTimeout(() => setIsDeleting(true), 1500); 
+        }
+      } else {
+        setText(currentPhrase.substring(0, text.length - 1));
+        
+        if (text === '') {
+          setIsDeleting(false);
+          setPhraseIndex((prev) => (prev + 1) % PHRASES.length);
+        }
+      }
+    }, isDeleting ? 50 : 100);
+
+    return () => clearTimeout(timeout);
+  }, [text, isDeleting, phraseIndex]);
+
   return (
     <section className="hero" id="home">
-      {/* Floating math symbols */}
       <div className="math-symbols">
         <span className="math-symbol">π</span>
         <span className="math-symbol">Σ</span>
@@ -22,9 +57,18 @@ export default function Hero() {
           </div>
 
           <h1 className="hero-title">
-            Master Mathematics with{' '}
-            <span className="highlight">Expert 1-to-1</span>{' '}
-            Live Tuition
+            Master Mathematics through <br />
+            <span className="typewriter-wrapper">
+              <span className="typewriter-placeholder" aria-hidden="true">
+                {PHRASES.map((phrase, i) => (
+                  <span key={i} className="placeholder-text">{phrase}</span>
+                ))}
+              </span>
+              <span className="highlight typewriter-text">
+                {text}
+                <span className="typewriter-cursor"></span>
+              </span>
+            </span>
           </h1>
 
           <p className="hero-subtitle">

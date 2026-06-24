@@ -4,27 +4,27 @@
 
 /* --- CSS Custom Properties (Tokens) --- */
 :root {
-  /* Primary palette — Deep Emerald */
-  --primary: #1B4D3E;
-  --primary-light: #2A7D5F;
-  --primary-dark: #0F3429;
-  --primary-rgb: 27, 77, 62;
+  /* Primary palette — Darker Blue/Purple mix */
+  --primary: #1d4ed8;
+  --primary-light: #7c3aed; /* Purple */
+  --primary-dark: #1e40af;
+  --primary-rgb: 29, 78, 216;
 
-  /* Accent — Warm Gold */
-  --accent: #D4A843;
-  --accent-light: #E8C96A;
-  --accent-dark: #B8922E;
-  --accent-rgb: 212, 168, 67;
+  /* Accent — Bright Yellow/Orange */
+  --accent: #fbbf24;
+  --accent-light: #fcd34d;
+  --accent-dark: #f59e0b;
+  --accent-rgb: 251, 191, 36;
 
   /* Secondary */
-  --secondary: #F0E6D3;
-  --secondary-light: #F7F1E8;
+  --secondary: #e0f2fe;
+  --secondary-light: #f0f9ff;
 
   /* Backgrounds */
-  --bg: #FAFAF7;
-  --bg-alt: #F5F3EE;
-  --bg-dark: #0F1A15;
-  --bg-dark-alt: #162A22;
+  --bg: #f8fafc;
+  --bg-alt: #f1f5f9;
+  --bg-dark: #0f172a;
+  --bg-dark-alt: #1e293b;
 
   /* Text */
   --text: #1A1A2E;
@@ -45,23 +45,24 @@
   --glass-bg-dark: rgba(15, 26, 21, 0.85);
 
   /* Gradients */
-  --gradient-hero: linear-gradient(135deg, #1B4D3E 0%, #0F3429 50%, #1A3A5C 100%);
-  --gradient-accent: linear-gradient(135deg, #D4A843 0%, #E8C96A 100%);
-  --gradient-card: linear-gradient(145deg, rgba(255,255,255,0.9), rgba(255,255,255,0.6));
-  --gradient-dark: linear-gradient(180deg, #0F1A15 0%, #162A22 100%);
+  --gradient-hero: linear-gradient(135deg, #2563eb 0%, #1d4ed8 50%, #6d28d9 100%);
+  --gradient-primary: linear-gradient(135deg, #1d4ed8 0%, #6d28d9 100%);
+  --gradient-accent: linear-gradient(135deg, #fbbf24 0%, #fcd34d 100%);
+  --gradient-card: linear-gradient(145deg, rgba(255,255,255,1), rgba(248,250,252,1));
+  --gradient-dark: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
 
-  /* Shadows */
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
-  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);
-  --shadow-xl: 0 20px 48px rgba(0, 0, 0, 0.15), 0 8px 16px rgba(0, 0, 0, 0.08);
-  --shadow-gold: 0 8px 24px rgba(212, 168, 67, 0.25);
-  --shadow-emerald: 0 8px 24px rgba(27, 77, 62, 0.2);
+  /* Shadows (Cartoon style: hard offset shadows) */
+  --shadow-sm: 2px 2px 0px rgba(15, 23, 42, 0.1);
+  --shadow-md: 4px 4px 0px rgba(15, 23, 42, 0.15);
+  --shadow-lg: 6px 6px 0px rgba(15, 23, 42, 0.2);
+  --shadow-xl: 8px 8px 0px rgba(15, 23, 42, 0.2);
+  --shadow-gold: 4px 4px 0px rgba(245, 158, 11, 0.4);
+  --shadow-emerald: 4px 4px 0px rgba(37, 99, 235, 0.4);
 
   /* Typography */
-  --font-heading: 'Outfit', sans-serif;
-  --font-body: 'Inter', sans-serif;
-  --font-accent: 'Amiri', serif;
+  --font-heading: 'Fredoka', sans-serif;
+  --font-body: 'Nunito', sans-serif;
+  --font-accent: 'Fredoka', sans-serif;
 
   /* Spacing */
   --space-xs: 4px;
@@ -188,6 +189,8 @@ p {
   max-width: 1280px;
   margin: 0 auto;
   width: 100%;
+  position: relative;
+  z-index: 10; /* Ensures content sits over the scroll line */
 }
 
 .section-header {
@@ -268,7 +271,7 @@ p {
 }
 
 .btn-secondary {
-  background: var(--primary);
+  background: var(--gradient-primary);
   color: var(--white);
   box-shadow: var(--shadow-emerald);
 }
