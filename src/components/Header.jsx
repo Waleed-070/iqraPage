@@ -8,7 +8,6 @@ const NAV_ITEMS = [
   { label: 'Curriculum', href: '/curriculum' },
   { label: 'Pricing', href: '/pricing' },
   { label: 'FAQ', href: '/faq' },
-  { label: 'Contact', href: '/contact' },
 ];
 
 export default function Header() {
@@ -37,7 +36,8 @@ export default function Header() {
   };
 
   return (
-    <header className={`header ${(scrolled || !isHomePage) ? 'scrolled' : ''}`} id="header">
+    <>
+      <header className={`header ${(scrolled || !isHomePage) ? 'scrolled' : ''}`} id="header">
       <div className="header-inner">
         <Link to="/" className="logo" aria-label="IQRA Virtual Academy Home">
           <div className="logo-icon">إ</div>
@@ -59,7 +59,7 @@ export default function Header() {
             ))}
           </div>
           <Link to="/contact" className="btn btn-primary header-cta">
-            Book Free Trial
+            Connect With Us
           </Link>
         </nav>
 
@@ -74,6 +74,8 @@ export default function Header() {
           <span></span>
         </button>
       </div>
+
+      </header>
 
       {/* Mobile Menu Overlay */}
       <div className={`mobile-menu ${menuOpen ? 'open' : ''}`}>
@@ -92,9 +94,9 @@ export default function Header() {
           className="btn btn-primary header-cta"
           onClick={handleNavClick}
         >
-          Book Free Trial
+          Connect With Us
         </Link>
       </div>
-    </header>
+    </>
   );
 }

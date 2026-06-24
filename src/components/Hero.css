@@ -34,7 +34,7 @@
 
 .hero-inner {
   position: relative;
-  z-index: 1;
+  z-index: 10;
   max-width: 1280px;
   width: 100%;
   margin: 0 auto;
@@ -272,12 +272,13 @@
   }
 
   .hero-content {
-    order: 1;
+    order: 0;
   }
 
   .hero-visual {
-    order: 0;
-    margin-bottom: var(--space-lg);
+    order: 1;
+    margin-top: var(--space-lg);
+    margin-bottom: 0;
   }
 
   .hero-image-wrapper {

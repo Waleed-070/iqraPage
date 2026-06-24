@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Plus, Minus } from 'lucide-react';
+import { ChevronDown, Search, MessageCircle } from 'lucide-react';
 import './FAQ.css';
 
 import imgUnderstanding from '../assets/faq_understanding.png';
@@ -110,7 +110,12 @@ export default function FAQ() {
     setActiveIndex(null); // Reset accordion when switching tabs
   };
 
-  const currentFaqs = FAQS[activeCategory] || [];
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const currentFaqs = (FAQS[activeCategory] || []).filter(faq => 
+    faq.question.toLowerCase().includes(searchQuery.toLowerCase()) || 
+    faq.answer.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <>
@@ -118,6 +123,26 @@ export default function FAQ() {
       <div className="faq-header">
         <h2>IQRA Virtual Academy Frequently Asked Questions</h2>
         
+        <div className="faq-search-container" style={{ maxWidth: '600px', margin: '0 auto 2.5rem', position: 'relative' }}>
+          <Search size={20} style={{ position: 'absolute', left: '20px', top: '50%', transform: 'translateY(-50%)', color: '#9ca3af' }} />
+          <input 
+            type="text" 
+            placeholder="Search for topics, features, or enrollment questions..." 
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            style={{ 
+              width: '100%', 
+              padding: '16px 20px 16px 52px', 
+              borderRadius: '50px', 
+              border: '1px solid rgba(0,0,0,0.1)',
+              fontSize: '1.05rem',
+              outline: 'none',
+              boxShadow: '0 4px 12px rgba(0,0,0,0.04)',
+              fontFamily: 'var(--font-heading)'
+            }}
+          />
+        </div>
+
         <div className="faq-tabs">
           {FAQ_CATEGORIES.map((category) => (
             <button
@@ -144,7 +169,15 @@ export default function FAQ() {
                 aria-expanded={activeIndex === index}
               >
                 <span className="faq-trigger-text">{faq.question}</span>
-                <Plus className="faq-trigger-icon" size={20} />
+                <ChevronDown 
+                  className="faq-trigger-icon" 
+                  size={20} 
+                  style={{ 
+                    transform: activeIndex === index ? 'rotate(180deg)' : 'rotate(0deg)',
+                    transition: 'transform 0.3s ease',
+                    color: activeIndex === index ? 'var(--primary)' : 'var(--text)'
+                  }} 
+                />
               </button>
               
               <div className="faq-content">
@@ -194,6 +227,21 @@ export default function FAQ() {
               </a>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Still Have Questions CTA */}
+      <section style={{ backgroundColor: '#f8fafc', padding: '5rem 1rem', textAlign: 'center' }}>
+        <div style={{ maxWidth: '600px', margin: '0 auto' }}>
+          <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '2rem', color: 'var(--text)', marginBottom: '1rem', fontWeight: 700 }}>
+            💬 Can't find what you're looking for?
+          </h2>
+          <p style={{ color: 'var(--text-muted)', fontSize: '1.1rem', lineHeight: 1.6, marginBottom: '2.5rem' }}>
+            Our admissions team is always here to help. Reach out directly and we'll get back to you within 24 hours.
+          </p>
+          <a href="/contact" className="btn btn-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 32px', fontSize: '1.05rem' }}>
+            <MessageCircle size={20} /> Speak to an Expert
+          </a>
         </div>
       </section>
     </>

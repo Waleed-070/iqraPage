@@ -2,6 +2,7 @@
   background: var(--bg-alt);
   position: relative;
   overflow: hidden;
+  padding-top: var(--header-height);
 }
 
 .contact::before {

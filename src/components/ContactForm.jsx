@@ -1,9 +1,96 @@
 import { useState } from 'react';
-import { Mail, Phone, MapPin, Clock, CheckCircle, Shield, Star, Award } from 'lucide-react';
+import { Mail, Phone, MapPin, Clock, CheckCircle, Shield, Star, Award, ChevronDown } from 'lucide-react';
 import { AnimateOnScroll } from './ScrollAnimations';
 import './ContactForm.css';
 
 const STEPS = ['Parent Info', 'Student Info', 'Schedule'];
+
+const CONTACT_FAQS = [
+  {
+    question: "What happens during the free trial session?",
+    answer: "We meet 1-on-1 with your child to evaluate their current mathematics strengths, discuss their confidence levels, and map out a custom learning framework tailored to their school curriculum requirements."
+  },
+  {
+    question: "Do I need to install any special software?",
+    answer: "No, our virtual classrooms run completely inside your standard web browser. A laptop or desktop computer with a working webcam and microphone is all you need to get started!"
+  },
+  {
+    question: "Am I locked into a commitment after booking?",
+    answer: "Not at all. The trial session is 100% complimentary with zero credit card details required up front. It is simply an opportunity for you and your child to see if our 1-to-1 environment is the perfect fit."
+  }
+];
+
+function ContactFAQ() {
+  const [activeIndex, setActiveIndex] = useState(null);
+
+  const toggleFAQ = (index) => {
+    setActiveIndex(activeIndex === index ? null : index);
+  };
+
+  return (
+    <div className="contact-faq-section" style={{ maxWidth: '800px', margin: '0 auto', padding: '4rem 1rem 6rem' }}>
+      <h2 style={{ textAlign: 'center', color: 'var(--text)', fontFamily: 'var(--font-heading)', fontSize: '2rem', marginBottom: '2rem', fontWeight: 700 }}>
+        Frequently Asked Questions
+      </h2>
+      <div className="contact-faq-list" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+        {CONTACT_FAQS.map((faq, index) => (
+          <div key={index} className="contact-faq-card" style={{
+            background: '#ffffff',
+            borderRadius: '12px',
+            boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
+            overflow: 'hidden',
+            border: '1px solid rgba(0,0,0,0.03)'
+          }}>
+            <button 
+              onClick={() => toggleFAQ(index)}
+              style={{
+                width: '100%',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                padding: '1.25rem 1.5rem',
+                background: 'transparent',
+                border: 'none',
+                cursor: 'pointer',
+                textAlign: 'left',
+                color: 'var(--text)',
+                fontFamily: 'var(--font-heading)',
+                fontSize: '1.1rem',
+                fontWeight: 600
+              }}
+            >
+              {faq.question}
+              <ChevronDown 
+                size={20} 
+                style={{ 
+                  transform: activeIndex === index ? 'rotate(180deg)' : 'rotate(0deg)',
+                  transition: 'transform 0.3s ease',
+                  color: 'var(--primary)',
+                  flexShrink: 0,
+                  marginLeft: '1rem'
+                }} 
+              />
+            </button>
+            <div style={{
+              maxHeight: activeIndex === index ? '200px' : '0',
+              overflow: 'hidden',
+              transition: 'max-height 0.3s ease-out'
+            }}>
+              <div style={{
+                padding: '0 1.5rem 1.25rem',
+                color: 'var(--text-muted)',
+                lineHeight: 1.6,
+                fontSize: '0.95rem'
+              }}>
+                {faq.answer}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export default function ContactForm() {
   const [currentStep, setCurrentStep] = useState(0);
@@ -332,6 +419,11 @@ export default function ContactForm() {
           </AnimateOnScroll>
         </div>
       </div>
+
+      {/* Embedded FAQ Section */}
+      <AnimateOnScroll>
+        <ContactFAQ />
+      </AnimateOnScroll>
     </section>
   );
 }

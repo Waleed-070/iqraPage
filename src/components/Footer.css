@@ -1,8 +1,18 @@
 .footer {
-  background: var(--gradient-dark);
+  --footer-background: var(--bg-dark);
   color: var(--text-on-dark);
   position: relative;
-  overflow: hidden;
+  margin-top: 4rem;
+}
+
+.footer-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--footer-background);
+  z-index: 1;
 }
 
 .footer::before {
@@ -18,7 +28,9 @@
 .footer-inner {
   max-width: 1280px;
   margin: 0 auto;
-  padding: var(--space-3xl) var(--space-lg) var(--space-xl);
+  padding: var(--space-xl) var(--space-lg) var(--space-xl);
+  position: relative;
+  z-index: 2; /* Ensures text stays above bubbles if they float high */
 }
 
 .footer-grid {
@@ -193,7 +205,11 @@
 
 @media (max-width: 600px) {
   .footer-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .footer-column:last-child {
+    grid-column: 1 / -1;
   }
 
   .footer-bottom {
@@ -205,3 +221,46 @@
     justify-content: center;
   }
 }
+
+/* ===== Bubbles Animation ===== */
+.bubbles {
+  position: absolute;
+  top: -1rem;
+  left: 0;
+  right: 0;
+  height: 2rem;
+  background: var(--footer-background);
+  filter: url("#blob");
+  z-index: 0;
+}
+
+.bubble {
+  position: absolute;
+  left: var(--position, 50%);
+  background: var(--footer-background);
+  border-radius: 100%;
+  animation: bubble-size var(--time, 4s) ease-in infinite var(--delay, 0s),
+             bubble-move var(--time, 4s) ease-in infinite var(--delay, 0s);
+  transform: translate(-50%, 100%);
+}
+
+@keyframes bubble-size {
+  0%, 75% {
+    width: var(--size, 4rem);
+    height: var(--size, 4rem);
+  }
+  100% {
+    width: 0rem;
+    height: 0rem;
+  }
+}
+
+@keyframes bubble-move {
+  0% {
+    bottom: -2rem;
+  }
+  100% {
+    bottom: calc(var(--distance, 10rem) + 4rem);
+  }
+}
+

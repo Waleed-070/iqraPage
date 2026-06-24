@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import heroImg from '../assets/hero-student.png';
+import DotField from './DotField';
 import './Hero.css';
 
 const PHRASES = [
@@ -40,6 +41,12 @@ export default function Hero() {
 
   return (
     <section className="hero" id="home">
+      <DotField 
+        gradientFrom="rgba(255, 255, 255, 0.9)"
+        gradientTo="rgba(212, 168, 67, 0.8)"
+        glowColor="rgba(212, 168, 67, 0.3)"
+        dotRadius={2.5}
+      />
       <div className="math-symbols">
         <span className="math-symbol">π</span>
         <span className="math-symbol">Σ</span>
