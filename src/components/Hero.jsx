@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import heroImg from '../assets/hero-student.png';
 import DotField from './DotField';
+import HeroIdCard from './HeroIdCard';
 import './Hero.css';
 
 const PHRASES = [
@@ -9,6 +10,61 @@ const PHRASES = [
   "Interactive Sessions.",
   "Proven Methodologies."
 ];
+
+const AnimatedNumber = ({ value, suffix = '', isFloat = false }) => {
+  const [count, setCount] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
+  const numberRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+    
+    if (numberRef.current) {
+      observer.observe(numberRef.current);
+    }
+    
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!isVisible) return;
+    
+    let startTime;
+    const duration = 2000; // 2 seconds
+
+    const animate = (currentTime) => {
+      if (!startTime) startTime = currentTime;
+      const progress = Math.min((currentTime - startTime) / duration, 1);
+      
+      // easeOutQuart
+      const easeProgress = 1 - Math.pow(1 - progress, 4);
+      
+      setCount(easeProgress * value);
+
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      } else {
+        setCount(value);
+      }
+    };
+
+    requestAnimationFrame(animate);
+  }, [value, isVisible]);
+
+  return (
+    <span ref={numberRef} className="animated-number">
+      {isFloat ? count.toFixed(1) : Math.floor(count)}
+      {suffix}
+    </span>
+  );
+};
 
 export default function Hero() {
   const [text, setText] = useState('');
@@ -95,30 +151,28 @@ export default function Hero() {
 
           <div className="hero-stats">
             <div className="hero-stat">
-              <div className="hero-stat-value">500+</div>
+              <div className="hero-stat-value">
+                <AnimatedNumber value={500} suffix="+" />
+              </div>
               <div className="hero-stat-label">Students Tutored</div>
             </div>
             <div className="hero-stat">
-              <div className="hero-stat-value">98%</div>
+              <div className="hero-stat-value">
+                <AnimatedNumber value={98} suffix="%" />
+              </div>
               <div className="hero-stat-label">Pass Rate</div>
             </div>
             <div className="hero-stat">
-              <div className="hero-stat-value">4.9★</div>
+              <div className="hero-stat-value">
+                <AnimatedNumber value={4.9} suffix="★" isFloat={true} />
+              </div>
               <div className="hero-stat-label">Parent Rating</div>
             </div>
           </div>
         </div>
 
         <div className="hero-visual">
-          <div className="hero-image-wrapper">
-            <img
-              src={heroImg}
-              alt="Student engaged in an online mathematics tutoring session"
-              className="hero-image"
-              width="520"
-              height="520"
-            />
-          </div>
+          {/* <HeroIdCard /> */}
         </div>
       </div>
     </section>

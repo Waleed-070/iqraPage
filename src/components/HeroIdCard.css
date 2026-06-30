@@ -1,0 +1,141 @@
+.hero-id-card-wrapper {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.id-rope-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: visible;
+}
+
+.id-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200px;
+  height: 280px;
+  cursor: grab;
+  z-index: 2;
+  transform-style: preserve-3d;
+}
+
+.id-card-face {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.15);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border: 1px solid #eee;
+  overflow: hidden;
+}
+
+.id-card-front {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+}
+
+.id-card-back {
+  transform: rotateY(180deg);
+  background: #fdfdfd;
+  display: flex;
+  flex-direction: column;
+}
+
+.mag-strip {
+  width: 100%;
+  height: 40px;
+  background: #222;
+  margin-top: 40px;
+}
+
+.back-text {
+  font-size: 10px;
+  color: #999;
+  text-align: center;
+  margin-top: auto;
+  margin-bottom: 20px;
+  padding: 0 20px;
+  font-family: sans-serif;
+}
+
+/* Lanyard Clip Base */
+.id-card::before {
+  content: '';
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 16px;
+  background: linear-gradient(to bottom, #cfd2d6, #9ba0a6);
+  border-radius: 4px 4px 0 0;
+  border: 1px solid #7c828a;
+  border-bottom: none;
+  box-shadow: inset 0 2px 4px rgba(255,255,255,0.8);
+}
+
+/* Lanyard Clip Ring */
+.id-card::after {
+  content: '';
+  position: absolute;
+  top: -26px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 12px;
+  background: transparent;
+  border: 3px solid #9ba0a6;
+  border-radius: 50%;
+}
+
+.id-card:active {
+  cursor: grabbing;
+}
+
+.id-photo {
+  width: 90px;
+  height: 90px;
+  background: #f0f0f0;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--accent, #d4a843);
+  margin-bottom: 15px;
+}
+
+.id-name {
+  font-size: 18px;
+  font-weight: 800;
+  color: #111;
+  font-family: var(--font-heading);
+  margin-bottom: 5px;
+}
+
+.id-role {
+  font-size: 14px;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.id-barcode {
+  margin-top: auto;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  letter-spacing: 3px;
+  color: #333;
+}

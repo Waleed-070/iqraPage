@@ -1,5 +1,5 @@
 .footer {
-  --footer-background: var(--bg-dark);
+  --footer-background: linear-gradient(90deg, #750000 0%, #3a0000 100%);
   color: var(--text-on-dark);
   position: relative;
   margin-top: 4rem;
@@ -15,15 +15,7 @@
   z-index: 1;
 }
 
-.footer::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: var(--gradient-accent);
-}
+
 
 .footer-inner {
   max-width: 1280px;

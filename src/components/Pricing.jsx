@@ -1,5 +1,6 @@
 import { Check } from 'lucide-react';
 import { AnimateOnScroll } from './ScrollAnimations';
+import GenerativeGrid from './GenerativeGrid';
 import howItWorksImg from '../assets/how_it_works.png';
 import './Pricing.css';
 
@@ -49,8 +50,9 @@ const PLANS = [
 
 export default function Pricing() {
   return (
-    <section className="pricing" id="pricing">
-
+    <section className="pricing" id="pricing" style={{ position: 'relative', overflow: 'hidden' }}>
+      <GenerativeGrid />
+      <div style={{ position: 'relative', zIndex: 1 }}>
       {/* Pricing Cards Section */}
       <div className="section">
         <AnimateOnScroll>
@@ -145,7 +147,6 @@ export default function Pricing() {
                 </div>
               </div>
 
-              <p className="hiw-footer-note"><em>No long-term contracts. You can switch plans or cancel at any time.</em></p>
             </div>
           </AnimateOnScroll>
         </div>
@@ -158,6 +159,7 @@ export default function Pricing() {
             before committing. No credit card required.
           </div>
         </AnimateOnScroll>
+      </div>
       </div>
     </section>
   );

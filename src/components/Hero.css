@@ -150,6 +150,20 @@
 
 .hero-stat {
   text-align: left;
+  animation: slideDownFade 0.8s ease-out forwards;
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+.hero-stat:nth-child(1) { animation-delay: 0.2s; }
+.hero-stat:nth-child(2) { animation-delay: 0.4s; }
+.hero-stat:nth-child(3) { animation-delay: 0.6s; }
+
+@keyframes slideDownFade {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .hero-stat-value {

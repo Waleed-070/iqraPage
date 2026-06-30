@@ -4,6 +4,7 @@ import {
   BarChart3, Puzzle, ChevronDown, Award
 } from 'lucide-react';
 import { AnimateOnScroll } from './ScrollAnimations';
+import GenerativeConstellation from './GenerativeConstellation';
 import './Syllabus.css';
 
 const CURRICULUM_BADGES = [
@@ -72,8 +73,9 @@ export default function Syllabus() {
   };
 
   return (
-    <section className="syllabus" id="syllabus">
-      <div className="section">
+    <section className="syllabus" id="syllabus" style={{ position: 'relative', overflow: 'hidden' }}>
+      <GenerativeConstellation />
+      <div className="section" style={{ position: 'relative', zIndex: 1 }}>
         <AnimateOnScroll>
           <div className="section-header">
             <h2>Our Curriculum</h2>
