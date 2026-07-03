@@ -187,7 +187,6 @@
   align-items: center;
   justify-content: center;
   margin-top: -60px;
-  animation: slideInRight 0.8s var(--ease-out) 0.2s both;
 }
 
 .hero-image-wrapper {

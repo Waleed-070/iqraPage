@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import heroImg from '../assets/hero-student.png';
 import DotField from './DotField';
 import HeroIdCard from './HeroIdCard';
+import CharaSvg from './CharaSvg';
 import './Hero.css';
 
 const PHRASES = [
@@ -172,9 +173,10 @@ export default function Hero() {
         </div>
 
         <div className="hero-visual">
-          {/* <HeroIdCard /> */}
+          <CharaSvg />
         </div>
       </div>
     </section>
   );
 }
+  

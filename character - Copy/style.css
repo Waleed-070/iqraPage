@@ -1,0 +1,237 @@
+:root {
+	--bg: #e4e4e4;
+	--surface: rgba(240, 237, 230, 0.03);
+	--surface-hi: rgba(240, 237, 230, 0.06);
+	--border: rgba(240, 237, 230, 0.07);
+	--border-hi: rgba(240, 237, 230, 0.15);
+	--text: rgba(240, 237, 230, 0.9);
+	--text-dim: rgba(240, 237, 230, 0.38);
+	--accent: #c8ff00;
+	--accent-dim: rgba(200, 255, 0, 0.08);
+	--accent-border: rgba(200, 255, 0, 0.28);
+	--fd: "Bebas Neue", sans-serif;
+	--fm: "DM Mono", monospace;
+}
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: var(--bg);
+	font-family: var(--fm);
+	overflow: hidden;
+	position: relative;
+}
+
+/* Grid bg */
+body::before {
+	content: "";
+	position: fixed;
+	inset: 0;
+	background-image: linear-gradient(
+			rgba(255, 255, 255, 0.022) 1px,
+			transparent 1px
+		),
+		linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
+	background-size: 52px 52px;
+	pointer-events: none;
+	z-index: 0;
+}
+
+/* ——— Slider UI (counter + preview) — injected by JS ——— */
+.slider-ui {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 20;
+	height: 48px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0 20px;
+	background: rgba(10, 10, 10, 0.92);
+	border-bottom: 1px solid var(--border);
+	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px);
+	gap: 16px;
+}
+
+.slide-counter {
+	font-family: var(--fd);
+	font-size: 2rem;
+	letter-spacing: 0.06em;
+	color: var(--text);
+	border: none;
+	background: transparent;
+	padding: 0;
+	cursor: default;
+	/* override JS absolute positioning */
+	position: static !important;
+	top: auto !important;
+	right: auto !important;
+	border-radius: 0;
+	margin-left: auto;
+}
+.slide-counter .cur {
+	color: var(--accent);
+}
+
+.svg-preview {
+	/* override JS absolute positioning */
+	position: absolute !important;
+	top: 60px !important;
+	left: auto !important;
+	width: 150px !important;
+	height: 150px !important;
+	aspect-ratio: 1;
+	border: 1px solid var(--border-hi);
+	background: #fff;
+	border-radius: 0;
+	overflow: hidden;
+	flex-shrink: 0;
+}
+.svg-preview svg {
+	width: 94% !important;
+	height: 94% !important;
+	opacity: 1 !important;
+	visibility: visible !important;
+}
+
+/* Brand in nav */
+.nav-brand {
+	font-family: var(--fd);
+	font-size: 1.1rem;
+	letter-spacing: 0.08em;
+	color: var(--text);
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+.nav-brand span {
+	color: var(--accent);
+}
+.nav-tag {
+	font-size: 9px;
+	letter-spacing: 0.2em;
+	text-transform: uppercase;
+	color: var(--text-dim);
+	display: flex;
+	align-items: center;
+	gap: 6px;
+}
+.nav-tag::before {
+	content: "";
+	width: 5px;
+	height: 5px;
+	border-radius: 50%;
+	background: var(--accent);
+	animation: pulse 2s infinite;
+}
+@keyframes pulse {
+	0%,
+	100% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.3;
+	}
+}
+
+/* ——— Container ——— */
+.container {
+	position: relative;
+	width: 100%;
+	height: 100vh;
+	background: var(--bg);
+	z-index: 1;
+}
+
+.container svg {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	visibility: hidden;
+	padding: clamp(40px, 8vw, 120px);
+}
+.container svg.is-active {
+	opacity: 1;
+	visibility: visible;
+}
+
+/* ——— Controls bar ——— */
+.controls {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 2;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 18px 24px;
+	background: rgba(10, 10, 10, 0.85);
+	border-top: 1px solid var(--border);
+	backdrop-filter: blur(8px);
+	-webkit-backdrop-filter: blur(8px);
+	gap: 16px;
+}
+
+/* Control buttons */
+.control-btn {
+	font-size: 16px;
+	width: 36px;
+	height: 36px;
+	border: 1px solid var(--border-hi);
+	color: var(--accent);
+	border-color: var(--accent-border);
+	background: var(--accent-dim);
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: color 0.2s, border-color 0.2s, background 0.2s;
+	flex-shrink: 0;
+	border-radius: 0;
+	outline: none;
+}
+
+/* Progress */
+.progress {
+	flex: 1;
+	height: 3px;
+	background: var(--border-hi);
+	overflow: hidden;
+	position: relative;
+}
+.progress-bar {
+	width: 100%;
+	height: 100%;
+}
+.progress-bar-inner {
+	width: 100%;
+	height: 100%;
+	transform-origin: left center;
+	transform: scaleX(0);
+	background: var(--accent);
+}
+
+/* Slide label */
+.controls-label {
+	font-size: 9px;
+	letter-spacing: 0.2em;
+	text-transform: uppercase;
+	color: var(--text-dim);
+	white-space: nowrap;
+	flex-shrink: 0;
+}

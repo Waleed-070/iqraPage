@@ -1,0 +1,107 @@
+﻿/* ── SvgLineDrawing wrapper ─────────────────────────────────────────── */
+.sdl-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Slide container — all SVGs stack on top of each other */
+.sdl-container {
+  position: relative;
+  width: 100%;
+  flex: 1;
+}
+
+/* Every injected SVG slide */
+.sdl-slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: none;
+  overflow: visible;
+}
+
+.sdl-slide.sdl-active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ── Controls bar ────────────────────────────────────────────────────── */
+.sdl-controls {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 16px;
+  background: rgba(10, 10, 10, 0.82);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 0 0 12px 12px;
+  flex-shrink: 0;
+}
+
+.sdl-buttons {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.sdl-btn {
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(200, 255, 0, 0.3);
+  background: rgba(200, 255, 0, 0.08);
+  color: #c8ff00;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, border-color 0.2s;
+  outline: none;
+}
+
+.sdl-btn:hover {
+  background: rgba(200, 255, 0, 0.18);
+  border-color: #c8ff00;
+}
+
+.sdl-progress-track {
+  flex: 1;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+  border-radius: 2px;
+}
+
+.sdl-progress-fill {
+  width: 100%;
+  height: 100%;
+  background: #c8ff00;
+  transform-origin: left center;
+  transform: scaleX(0);
+}
+
+.sdl-counter {
+  font-family: "DM Mono", monospace;
+  font-size: 0.85rem;
+  color: rgba(240, 237, 230, 0.7);
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.sdl-cur {
+  color: #c8ff00;
+  font-weight: 500;
+}

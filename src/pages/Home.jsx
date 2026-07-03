@@ -10,15 +10,10 @@ export default function Home() {
     <div style={{ position: 'relative' }}>
       <Hero />
       <div style={{ position: 'relative' }}>
-        {/* White background */}
         <Benefits />
-        {/* Light grey #F8FAFC */}
         <Programs />
-        {/* White background */}
         <Tutors />
-        {/* Light grey #F8FAFC */}
         <Testimonials />
-        {/* Animated scroll drawing line */}
         <ScrollLine />
       </div>
     </div>
