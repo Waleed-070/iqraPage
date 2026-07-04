@@ -1,0 +1,91 @@
+/* ParallaxHero.css */
+
+.parallax-hero-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden; /* We don't want layers spilling out during pin */
+  background: radial-gradient(circle at center, #0f172a 0%, #020617 100%); /* Midnight-blue gradient */
+}
+
+.parallax-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  will-change: transform, opacity;
+}
+
+/* Background grid */
+.parallax-bg {
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bg-grid {
+  width: 100%;
+  height: 100%;
+  /* Glowing abstract grid / constellation array feel */
+  background-image: 
+    linear-gradient(rgba(56, 189, 248, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(56, 189, 248, 0.05) 1px, transparent 1px);
+  background-size: 50px 50px;
+  background-position: center center;
+  /* Add a subtle glow overlay */
+  box-shadow: inset 0 0 100px rgba(2, 6, 23, 0.9);
+}
+
+/* Text Layer */
+.parallax-text {
+  z-index: 10;
+  pointer-events: none; /* Let clicks pass through */
+}
+
+/* Midground: Floating Symbols */
+.parallax-midground {
+  z-index: 15;
+  pointer-events: none;
+}
+
+.floating-symbol {
+  position: absolute;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.2));
+  transform-origin: center;
+}
+
+/* Foreground: Book */
+.parallax-foreground {
+  z-index: 20;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.book-graphic-container {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  transform: translateY(20%); /* Start slightly lower so it scrolls up naturally */
+}
+
+.book-svg {
+  width: 100%;
+  height: auto;
+}
+
+.book-glow {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 50px;
+  background: radial-gradient(ellipse, rgba(56, 189, 248, 0.4) 0%, transparent 70%);
+  filter: blur(20px);
+  z-index: -1;
+}

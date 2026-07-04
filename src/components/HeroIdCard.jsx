@@ -6,11 +6,12 @@ import heroImg from '../assets/hero-student.png';
 
 gsap.registerPlugin(Draggable);
 
-export default function HeroIdCard() {
+export default function HeroIdCard({ visible = true, onDragStateChange }) {
   const containerRef = useRef(null);
   const cardRef = useRef(null);
   const ropeLeftRef = useRef(null);
   const ropeRightRef = useRef(null);
+  const updateRopeRef = useRef(null);
 
   useEffect(() => {
     const card = cardRef.current;
@@ -25,7 +26,7 @@ export default function HeroIdCard() {
     // Position rope pivot near the top-center of the container
     let fixedTop = {
       x: container.clientWidth / 2,
-      y: -800 // High up to look like it comes from off-screen
+      y: -800 // High up so it hangs all the way from off-screen
     };
 
     let cardStart = {
@@ -45,13 +46,17 @@ export default function HeroIdCard() {
     });
 
     const updateRope = () => {
+      const rope = ropeLeftRef.current;
+      const ropeRight = ropeRightRef.current;
+      if (!rope || !ropeRight) return;
+      
       const cardX = gsap.getProperty(card, "x");
       const cardY = gsap.getProperty(card, "y");
       
       const centerX = cardX + cardWidth / 2;
-      const topY = cardY - 15; // Connects to the lanyard clip above the card
-      
-      const spread = 150; // How far apart the ribbons are at the top
+      const topY = cardY - 26; // Connects exactly to the lanyard clip ring
+
+      const spread = 80; // Distance between the two ribbons at the top
 
       // Vector from anchor to card
       const vecX = centerX - fixedTop.x;
@@ -63,14 +68,13 @@ export default function HeroIdCard() {
       const targetRotationZ = pendulumAngle * (180 / Math.PI);
 
       // Realistic Ribbon Stretch & Contract
-      // Calculate tension distance compared to resting distance
       const currentDistance = Math.sqrt(vecX*vecX + vecY*vecY);
       const restVecX = (cardFinal.x + cardWidth / 2) - fixedTop.x;
-      const restVecY = (cardFinal.y - 15) - fixedTop.y;
+      const restVecY = (cardFinal.y - 26) - fixedTop.y;
       const restDistance = Math.sqrt(restVecX*restVecX + restVecY*restVecY);
       
-      // Ribbon gets thinner as it stretches, thicker as it compresses
-      const thickness = Math.max(2, Math.min(24, 18 * Math.pow(restDistance / currentDistance, 1.5)));
+      // Elastic gets thinner as it stretches, thicker as it compresses. Increased base width.
+      const thickness = Math.max(4, Math.min(22, 16 * Math.pow(restDistance / currentDistance, 1.5)));
       
       // 3D Tilt based on Y stretch
       const targetRotationX = (cardY - cardFinal.y) * -0.08; 
@@ -79,30 +83,25 @@ export default function HeroIdCard() {
       gsap.set(card, { 
         rotationZ: targetRotationZ, 
         rotateX: targetRotationX,
-        transformOrigin: "50% -15px",
+        transformOrigin: "50% -26px",
         transformPerspective: 800 
       });
-      ropeLeft.setAttribute("x1", fixedTop.x - spread);
-      ropeLeft.setAttribute("y1", fixedTop.y);
-      ropeLeft.setAttribute("x2", centerX);
-      ropeLeft.setAttribute("y2", topY);
-      ropeLeft.setAttribute("stroke-width", thickness);
+
+      rope.setAttribute("x1", fixedTop.x - spread);
+      rope.setAttribute("y1", fixedTop.y);
+      rope.setAttribute("x2", centerX);
+      rope.setAttribute("y2", topY);
+      rope.setAttribute("stroke-width", thickness);
 
       ropeRight.setAttribute("x1", fixedTop.x + spread);
       ropeRight.setAttribute("y1", fixedTop.y);
       ropeRight.setAttribute("x2", centerX);
       ropeRight.setAttribute("y2", topY);
       ropeRight.setAttribute("stroke-width", thickness);
+      ropeRight.setAttribute("stroke-width", thickness);
     };
-
-    // Initial drop animation
-    gsap.to(card, {
-      x: cardFinal.x,
-      y: cardFinal.y,
-      duration: 1.2,
-      ease: "bounce.out",
-      onUpdate: updateRope
-    });
+    
+    updateRopeRef.current = updateRope;
 
     Draggable.create(card, {
       type: "x,y",
@@ -110,6 +109,7 @@ export default function HeroIdCard() {
       bounds: container,
       inertia: true,
       onPress: () => {
+        if (onDragStateChange) onDragStateChange(true);
         gsap.killTweensOf(card);
         updateRope();
       },
@@ -120,6 +120,7 @@ export default function HeroIdCard() {
         updateRope();
       },
       onRelease: function () {
+        if (onDragStateChange) onDragStateChange(false);
         // Completely asynchronous, chaotic physics!
         
         // Y-axis: Massive irregular jumps up and down
@@ -163,21 +164,40 @@ export default function HeroIdCard() {
     };
   }, []);
 
+  // React to visibility changes
+  useEffect(() => {
+    const card = cardRef.current;
+    if (!card) return;
+
+    if (visible) {
+      gsap.to(card, {
+        y: 50, // drop position
+        duration: 1.2,
+        ease: "bounce.out",
+        overwrite: "auto",
+        onUpdate: () => updateRopeRef.current && updateRopeRef.current()
+      });
+    } else {
+      gsap.to(card, {
+        y: -800, // pull all the way up out of screen
+        duration: 0.8,
+        ease: "power2.in",
+        overwrite: "auto",
+        onUpdate: () => updateRopeRef.current && updateRopeRef.current()
+      });
+    }
+  }, [visible]);
+
   return (
     <div className="hero-id-card-wrapper" ref={containerRef}>
       <svg className="id-rope-svg" width="100%" height="100%">
         <defs>
-          <linearGradient id="ribbonGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#b38a36" />
-            <stop offset="50%" stopColor="#e8c368" />
-            <stop offset="100%" stopColor="#8c6a26" />
-          </linearGradient>
           <filter id="ribbonShadow">
             <feDropShadow dx="2" dy="4" stdDeviation="4" floodOpacity="0.4" />
           </filter>
         </defs>
-        <line ref={ropeLeftRef} stroke="url(#ribbonGrad)" strokeWidth="18" filter="url(#ribbonShadow)" />
-        <line ref={ropeRightRef} stroke="url(#ribbonGrad)" strokeWidth="18" filter="url(#ribbonShadow)" />
+        <line ref={ropeLeftRef} stroke="#d4a843" strokeWidth="16" strokeLinecap="round" />
+        <line ref={ropeRightRef} stroke="#d4a843" strokeWidth="16" strokeLinecap="round" />
       </svg>
 
       <div className="id-card" ref={cardRef}>
